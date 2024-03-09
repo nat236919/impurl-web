@@ -10,14 +10,12 @@
         </h3>
         <!-- Call to Action -->
         <div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
-            <div>
-                <div class="mt-2">
-                    <input id="url" name="url" type="url" v-model="url" required
-                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-            </div>
-            <button
-                class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
+            <input
+                class="items-center w-72 text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700"
+                id="url" name="url" type="url" v-model="url" required />
+            <button class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400
+                focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex
+                items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
                 @click="shortenURL()">
                 Shrink!
             </button>
@@ -25,26 +23,36 @@
         <!-- Footer -->
         <div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
             <div>
+                <!-- Author -->
                 <p class="text-center text-slate-600 dark:text-slate-400">
                     Made with ❤️ by <a href="https://www.mythnolia.com" target="_blank" class="underline">Mythnolia</a>
+                </p>
+                <!-- Copyright -->
+                <p class="text-center text-slate-600 dark:text-slate-400">
+                    &copy; {{ curYear }} All rights reserved.
                 </p>
             </div>
         </div>
     </div>
 </template>
 
-<script setup>
-console.log("Loading runtimeConfig in index.vue")
-const runtimeConfig = useRuntimeConfig()
-console.log(runtimeConfig)
+<script setup lang="ts">
+const runtimeConfig = useRuntimeConfig();
+const apiUrl = computed(() => `${runtimeConfig.apiHost}/v1/urls`);
+const apiSecretKey = computed(() => runtimeConfig.apiSecretKey);
 </script>
 
-<script>
+<script lang="ts">
 export default {
     data() {
         return {
             url: "",
             shortenedURL: ""
+        }
+    },
+    computed: {
+        curYear() {
+            return new Date().getFullYear()
         }
     },
     methods: {
@@ -56,4 +64,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+body {
+    background-color: #fcfcfc;
+}
+</style>
