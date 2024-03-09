@@ -1,5 +1,6 @@
 <template>
     <div class="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32">
+        <!-- Title -->
         <h1
             class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white">
             impURL
@@ -7,6 +8,7 @@
         <h3 class="mt-4 text-slate-600 text-center text-lg sm:text-xl max-w-3xl mx-auto dark:text-slate-400">
             Where magic makes links shorter and sweeter
         </h3>
+        <!-- Call to Action -->
         <div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
             <div>
                 <div class="mt-2">
@@ -19,6 +21,14 @@
                 @click="shortenURL()">
                 Shrink!
             </button>
+        </div>
+        <!-- Footer -->
+        <div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
+            <div>
+                <p class="text-center text-slate-600 dark:text-slate-400">
+                    Made with ❤️ by <a href="https://www.mythnolia.com" target="_blank" class="underline">Mythnolia</a>
+                </p>
+            </div>
         </div>
     </div>
 </template>
