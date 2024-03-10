@@ -1,3 +1,28 @@
+<script setup>
+const runtimeConfig = useRuntimeConfig();
+const apiUrl = computed(() => `${runtimeConfig.apiHost}/v1/urls`);
+const apiSecretKey = computed(() => runtimeConfig.apiSecretKey);
+
+const curYear = new Date().getFullYear()
+
+const url = ref("");
+
+// const submitForm = async () => {
+//     const { data: responseData } = await useFetch('http://localhost:8888/tutorial-form-handler/index.php', {
+//         method: 'post',
+//         body: { 
+//           name: formData.value.name,
+//           email: formData.value.email,
+//           message: formData.value.message, 
+//         }
+//     })
+
+//     console.log(responseData.value)
+// }
+
+
+</script>
+
 <template>
     <div class="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32">
         <!-- Title -->
@@ -12,7 +37,7 @@
         <div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
             <input
                 class="items-center w-72 text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700"
-                id="url" name="url" type="url" v-model="url" required />
+                id="url" name="url" type="url" v-model="url" placeholder="Enter your long URL here" />
             <button class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400
                 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex
                 items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
@@ -35,34 +60,6 @@
         </div>
     </div>
 </template>
-
-<script setup lang="ts">
-const runtimeConfig = useRuntimeConfig();
-const apiUrl = computed(() => `${runtimeConfig.apiHost}/v1/urls`);
-const apiSecretKey = computed(() => runtimeConfig.apiSecretKey);
-</script>
-
-<script lang="ts">
-export default {
-    data() {
-        return {
-            url: "",
-            shortenedURL: ""
-        }
-    },
-    computed: {
-        curYear() {
-            return new Date().getFullYear()
-        }
-    },
-    methods: {
-        async shortenURL() {
-            console.log("Shortening URL")
-            console.log(this.url)
-        },
-    },
-}
-</script>
 
 <style lang="scss">
 body {
