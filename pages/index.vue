@@ -1,25 +1,14 @@
-<script setup>
+<script setup lang="ts">
 const runtimeConfig = useRuntimeConfig();
 const apiUrl = computed(() => `${runtimeConfig.apiHost}/v1/urls`);
 const apiSecretKey = computed(() => runtimeConfig.apiSecretKey);
+const curYear = new Date().getFullYear();
+const url = ref(null)
 
-const curYear = new Date().getFullYear()
-
-const url = ref("");
-
-// const submitForm = async () => {
-//     const { data: responseData } = await useFetch('http://localhost:8888/tutorial-form-handler/index.php', {
-//         method: 'post',
-//         body: { 
-//           name: formData.value.name,
-//           email: formData.value.email,
-//           message: formData.value.message, 
-//         }
-//     })
-
-//     console.log(responseData.value)
-// }
-
+const res = ref("Placeholder");
+async function shrinkUrl() {
+    res.value = "Updated Placeholder";
+}
 
 </script>
 
@@ -41,9 +30,17 @@ const url = ref("");
             <button class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400
                 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex
                 items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
-                @click="shortenURL()">
+                @click="shrinkUrl">
                 Shrink!
             </button>
+        </div>
+        <!-- Result -->
+        <div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm" v-if="res">
+            <div>
+                <p class="text-center text-slate-600 dark:text-slate-400">
+                    {{ res }}
+                </p>
+            </div>
         </div>
         <!-- Footer -->
         <div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
