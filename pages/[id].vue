@@ -1,12 +1,3 @@
-<template>
-    <div>
-        <p>ID: {{ id }}</p>
-        <p>API URL: {{ apiUrl }}</p>
-        <p>Response: {{ res }}</p>
-        <p>Data: {{ data }}</p>
-    </div>
-</template>
-
 <script setup lang="ts">
 import { APIResponse } from "~~/types/APIResponse";
 
@@ -32,6 +23,23 @@ const res = await useFetch<APIResponse>(apiUrl.value, {
     });
 });
 
-// Get Data from Response
-const data = computed(() => res.data);
+// Get data from Response
+const data = computed(() => res.data.value);
+
+// Redirect to 404 if data not found
+if (!data.value || !data.value.original_url) {
+    throw createError({
+        statusCode: 404,
+        message: "URL not found",
+    });
+}
+const originalUrl = computed(() => data.value.original_url);
 </script>
+
+<template>
+    <div>
+        Loading...
+        {{ data }}
+        {{ originalUrl }}
+    </div>
+</template>
