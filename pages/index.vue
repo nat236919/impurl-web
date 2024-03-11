@@ -30,7 +30,9 @@ async function shrinkUrl() {
 </script>
 
 <template>
-    <div class="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32">
+    <div class="relative max-w-5xl mx-auto pt-16 sm:pt-20 lg:pt-28">
+        <!-- Logo -->
+        <img class="h-auto max-w-full mx-auto logo" src="/img/imp-logo.png" alt="Imp Logo" />
         <!-- Title -->
         <h1
             class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white">
@@ -84,6 +86,58 @@ async function shrinkUrl() {
 <style lang="scss">
 body {
     background-color: #fcfcfc;
+}
+
+.logo {
+    max-width: 200px;
+    animation: wiggle 20s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
 }
 
 .success-message {
