@@ -1,22 +1,15 @@
 <script setup lang="ts">
 import { APIResponse } from "~~/types/APIResponse";
 
-// Get Route and Runtime Config
 const route = useRoute();
-const runtimeConfig = useRuntimeConfig();
-
-// Get ID and API URL
 const id = computed(() => route.params.id);
-const apiUrl = computed(() => `${runtimeConfig.apiHost}/v1/urls/${id.value}`);
+const originalUrl = ref(null);
 
-// Fetch Data
-const res = await useFetch<APIResponse>(apiUrl.value, {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json",
-        "X-Api-Key": runtimeConfig.apiSecretKey,
-    },
+const res = await useFetch<APIResponse>("/api/redirect", {
+    method: "POST",
+    body: JSON.stringify({ "id": id.value })
 }).catch((error) => {
+    console.error(error);
     throw createError({
         statusCode: 404,
         message: "URL not found",
@@ -32,8 +25,10 @@ if (!data.value || !data.value.original_url) {
         statusCode: 404,
         message: "URL not found",
     });
+} else {
+    // Redirect to original URL
+    originalUrl.value = computed(() => data.value.original_url);
 }
-const originalUrl = computed(() => data.value.original_url);
 </script>
 
 <template>

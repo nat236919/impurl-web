@@ -1,7 +1,4 @@
 <script setup lang="ts">
-const runtimeConfig = useRuntimeConfig();
-const apiUrl = computed(() => `${runtimeConfig.apiHost}/v1/urls`);
-const apiSecretKey = computed(() => runtimeConfig.apiSecretKey);
 const curYear = new Date().getFullYear();
 const url = ref(null)
 
