@@ -1,10 +1,12 @@
 <script setup lang="ts">
+const reqHeaders = useRequestHeaders();
+const host = reqHeaders.host ?? "http://localhost:3000";
 const curYear = new Date().getFullYear();
-const url = ref(null)
-
+const inputUrl = ref(null);
 const res = ref(null);
+
 async function shrinkUrl() {
-    if (!url.value) {
+    if (!inputUrl.value) {
         alert("Please enter a URL");
         return;
     }
@@ -13,7 +15,7 @@ async function shrinkUrl() {
     const validUrl = new RegExp(
         "^(http|https)://[^s/$.?#].[^s]*$"
     );
-    if (!validUrl.test(url.value)) {
+    if (!validUrl.test(inputUrl.value)) {
         alert("Please enter a valid URL");
         return;
     }
@@ -21,9 +23,17 @@ async function shrinkUrl() {
     // Call the API
     res.value = await useFetch("/api/urls", {
         method: "POST",
-        body: JSON.stringify({ "original_url": url.value })
+        body: JSON.stringify({ "original_url": inputUrl.value })
     });
 }
+
+async function copyToClipboard() {
+    let fullUrl = `${host}/${res.value.data.id}`;
+    navigator.clipboard.writeText(fullUrl);
+    alert("Copied to clipboard");
+}
+
+
 </script>
 
 <template>
@@ -43,7 +53,7 @@ async function shrinkUrl() {
             class="mt-6 sm:mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 text-sm">
             <input
                 class="w-72 text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700"
-                id="url" name="url" type="url" v-model="url" placeholder="Enter your long URL here" required />
+                id="url" name="url" type="url" v-model="inputUrl" placeholder="Enter your long URL here" required />
             <button class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400
                 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-4 rounded-lg flex
                 items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
@@ -54,9 +64,25 @@ async function shrinkUrl() {
         <!-- Result -->
         <div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm" v-if="res">
             <div v-if="res.data">
-                <p class="text-center text-slate-600 dark:text-slate-400 success-message">
-                    {{ res.data.id }}
-                </p>
+                <div class="text-sm leading-6" v-if="res.data.id">
+                    <blockquote
+                        class="relative flex flex-col-reverse bg-slate-50 rounded-lg p-6 dark:bg-slate-800 dark:highlight-white/5">
+                        <span>
+                            {{ host }}/{{ res.data.id }}
+                            <button @click="copyToClipboard">
+                                <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 18 20">
+                                    <path
+                                        d="M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z">
+                                    </path>
+                                    <path
+                                        d="M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </span>
+                    </blockquote>
+                </div>
             </div>
             <div v-else>
                 <!-- Red text -->
