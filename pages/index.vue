@@ -90,7 +90,7 @@ body {
 }
 
 body {
-    background: radial-gradient(ellipse at center, #fffeea 0%, #ffffff 35%, #91abad 100%);
+    background: radial-gradient(ellipse at center, #fffffa 0%, #ffffff 35%, #c8dedf 100%);
     overflow: hidden;
 }
 
