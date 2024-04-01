@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const reqUrl = useRequestURL();
 const reqHeaders = useRequestHeaders();
 const host = reqHeaders.host ?? "http://localhost:3000";
 const curYear = new Date().getFullYear();
@@ -45,6 +46,11 @@ async function copyToClipboard() {
             class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white">
             impURL
         </h1>
+
+        {{ reqUrl }}
+
+        {{ reqHeaders }}
+
         <h3 class="mt-4 text-slate-600 text-center text-lg sm:text-xl max-w-3xl mx-auto dark:text-slate-400">
             Where magic makes links shorter and sweeter
         </h3>
