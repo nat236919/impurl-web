@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const reqUrl = useRequestURL();
-const reqHeaders = useRequestHeaders();
-const host = reqHeaders.host ?? "http://localhost:3000";
+const reqUrl = useRequestURL(); // Change this to localhost if running locally
 const curYear = new Date().getFullYear();
 const inputUrl = ref(null);
 const res = ref(null);
@@ -29,7 +27,7 @@ async function shrinkUrl() {
 }
 
 async function copyToClipboard() {
-    let fullUrl = `${host}/${res.value.data.id}`;
+    let fullUrl = `${reqUrl}${res.value.data.id}`;
     navigator.clipboard.writeText(fullUrl);
     alert("Copied to clipboard");
 }
@@ -46,11 +44,6 @@ async function copyToClipboard() {
             class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white">
             impURL
         </h1>
-
-        {{ reqUrl }}
-
-        {{ reqHeaders }}
-
         <h3 class="mt-4 text-slate-600 text-center text-lg sm:text-xl max-w-3xl mx-auto dark:text-slate-400">
             Where magic makes links shorter and sweeter
         </h3>
@@ -74,7 +67,7 @@ async function copyToClipboard() {
                     <blockquote
                         class="relative flex flex-col-reverse bg-slate-50 rounded-lg p-6 dark:bg-slate-800 dark:highlight-white/5">
                         <span>
-                            {{ host }}/{{ res.data.id }}
+                            {{ reqUrl }}{{ res.data.id }}
                             <button @click="copyToClipboard">
                                 <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="currentColor" viewBox="0 0 18 20">
