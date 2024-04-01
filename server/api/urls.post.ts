@@ -22,7 +22,9 @@ export default defineEventHandler(async (event) => {
             statusMessage: "original_url is not a valid URL",
         })
 
-    return await $fetch(`${config.apiHost}/v1/urls`, {
+    console.log(config.apiHost);
+
+    return await $fetch(`${config.apiHost}/v1/urls/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
