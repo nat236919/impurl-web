@@ -28,17 +28,23 @@ async function redirectToOriginalUrl(url: string) {
         if (response.data.value) {
             const data = response.data.value;
             if (!data || !data.original_url) {
-                throw new Error("URL not found");
+                throw createError({
+                    statusCode: 404,
+                    statusMessage: 'Page Not Found'
+                })
             } else {
                 originalUrl.value = data.original_url;
                 await redirectToOriginalUrl(originalUrl.value);
             }
         } else {
-            throw new Error("URL not found");
+            throw createError({
+                statusCode: 404,
+                statusMessage: 'Page Not Found'
+            })
         }
     } catch (error) {
         throw createError({
-            statusCode: 404,
+            statusCode: 500,
             message: error,
         });
     }
