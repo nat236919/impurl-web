@@ -47,11 +47,9 @@ async function redirectToOriginalUrl(url: string) {
 
 <template>
     <div class="relative max-w-5xl mx-auto pt-16 sm:pt-20 lg:pt-28">
-        <h3 v-if="errorMessage" class="mt-4 text-red-600 text-center text-lg sm:text-xl max-w-3xl mx-auto dark:text-red-400">
-            {{ errorMessage }}
-        </h3>
-        <h3 v-else class="mt-4 text-slate-600 text-center text-lg sm:text-xl max-w-3xl mx-auto dark:text-slate-400">
-            LOADING...
+        <h3 class="mt-4 text-slate-600 text-center text-lg sm:text-xl max-w-3xl mx-auto dark:text-slate-400">
+            <span v-if="errorMessage">{{ errorMessage }}</span>
+            <span v-else>Redirecting...</span>
         </h3>
     </div>
 </template>
