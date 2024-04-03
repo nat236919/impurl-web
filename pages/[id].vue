@@ -43,7 +43,7 @@ try {
     }
 } catch (error) {
     throw createError({
-        statusCode: 500,
+        statusCode: 404,
         message: error,
     });
 }
