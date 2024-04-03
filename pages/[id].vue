@@ -18,37 +18,35 @@ async function redirectToOriginalUrl(url: string) {
     }
 }
 
-(async () => {
-    try {
-        const response = await useFetch<APIResponse>("/api/redirect", {
-            method: "POST",
-            body: JSON.stringify({ id: id.value })
-        });
+try {
+    const response = await useFetch<APIResponse>("/api/redirect", {
+        method: "POST",
+        body: JSON.stringify({ id: id.value })
+    });
 
-        if (response.data.value) {
-            const data = response.data.value;
-            if (!data || !data.original_url) {
-                throw createError({
-                    statusCode: 404,
-                    statusMessage: 'Page Not Found'
-                })
-            } else {
-                originalUrl.value = data.original_url;
-                await redirectToOriginalUrl(originalUrl.value);
-            }
-        } else {
+    if (response.data.value) {
+        const data = response.data.value;
+        if (!data || !data.original_url) {
             throw createError({
                 statusCode: 404,
                 statusMessage: 'Page Not Found'
             })
+        } else {
+            originalUrl.value = data.original_url;
+            await redirectToOriginalUrl(originalUrl.value);
         }
-    } catch (error) {
+    } else {
         throw createError({
-            statusCode: 500,
-            message: error,
-        });
+            statusCode: 404,
+            statusMessage: 'Page Not Found'
+        })
     }
-})();
+} catch (error) {
+    throw createError({
+        statusCode: 500,
+        message: error,
+    });
+}
 </script>
 
 <template>
