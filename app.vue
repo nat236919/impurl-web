@@ -38,6 +38,6 @@ body {
 body {
   background: radial-gradient(ellipse at center, #fffffa 0%, #ffffff 35%, #c8dedf 100%);
   overflow: hidden;
-  font-family: cursive !important;
+  font-family: Helvetica, Arial, sans-serif !important;
 }
 </style>
