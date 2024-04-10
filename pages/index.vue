@@ -29,11 +29,41 @@ async function shrinkUrl() {
 
 async function copyToClipboard() {
     let fullUrl = `${reqUrl}${res.value.data.id}`;
-    navigator.clipboard.writeText(fullUrl);
-    alert("Copied to clipboard");
+    if (navigator.clipboard) {
+        try {
+            await navigator.clipboard.writeText(fullUrl);
+            alert("Copied to clipboard");
+        } catch (err) {
+            fallbackCopyTextToClipboard(fullUrl);
+        }
+    } else {
+        fallbackCopyTextToClipboard(fullUrl);
+    }
 }
 
+function fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
 
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        var successful = document.execCommand("copy");
+        var msg = successful ? "successful" : "unsuccessful";
+        alert("Fallback: Copying text command was " + msg);
+    } catch (err) {
+        console.error("Fallback: Oops, unable to copy", err);
+    }
+
+    document.body.removeChild(textArea);
+}
 </script>
 
 <template>
