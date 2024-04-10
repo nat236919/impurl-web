@@ -37,7 +37,7 @@ async function copyToClipboard() {
 </script>
 
 <template>
-    <div class="relative max-w-5xl mx-auto pt-16 sm:pt-20 lg:pt-28">
+    <div class="relative max-w-5xl mx-auto pt-16 sm:pt-20 lg:pt-28 px-4 sm:px-0">
         <!-- Logo -->
         <img class="h-auto max-w-full mx-auto logo" src="/img/imp-logo.png" alt="Imp Logo" />
         <!-- Title -->
@@ -52,7 +52,7 @@ async function copyToClipboard() {
         <div
             class="mt-6 sm:mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 text-sm">
             <input
-                class="w-72 text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700"
+                class="w-full sm:w-72 text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700"
                 id="url" name="url" type="url" v-model="inputUrl" placeholder="Enter your long URL here" required />
             <button class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400
                 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-4 rounded-lg flex
@@ -85,7 +85,7 @@ async function copyToClipboard() {
                 </div>
             </div>
             <div v-else>
-                <!-- Red text -->
+                <!-- Error text -->
                 <p class="text-center text-slate-600 dark:text-slate-400 err-message">
                     {{ res.error }}
                 </p>
