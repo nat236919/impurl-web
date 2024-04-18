@@ -38,11 +38,12 @@ useSeoMeta({
 html,
 body {
   height: 100%;
+  overflow-y: auto;
 }
 
 body {
   background: radial-gradient(ellipse at center, #fffffa 0%, #ffffff 35%, #c8dedf 100%);
-  overflow: hidden;
+  overflow-x: hidden;
   font-family: Helvetica, Arial, sans-serif;
 }
 </style>
