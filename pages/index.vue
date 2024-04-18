@@ -4,6 +4,7 @@ const reqUrl = useRequestURL(); // Change this to localhost if running locally
 const curYear = new Date().getFullYear();
 const inputUrl = ref(null);
 const res = ref(null);
+const loading = ref(false);
 
 async function shrinkUrl() {
     if (!inputUrl.value) {
@@ -20,12 +21,20 @@ async function shrinkUrl() {
         return;
     }
 
-    // Call the API
-    res.value = await useFetch("/api/urls", {
-        method: "POST",
-        body: JSON.stringify({ "original_url": inputUrl.value }),
-        timeout: 10000, // to set the timeout to 10 seconds
-    });
+    loading.value = true;
+
+    try {
+        // Call the API
+        res.value = await useFetch("/api/urls", {
+            method: "POST",
+            body: JSON.stringify({ "original_url": inputUrl.value }),
+            timeout: 10000, // to set the timeout to 10 seconds
+        });
+    } catch (error) {
+        res.value = { error: error.message };
+    } finally {
+        loading.value = false;
+    }
 }
 
 async function copyToClipboard() {
@@ -84,13 +93,24 @@ function fallbackCopyTextToClipboard(text) {
             class="mt-6 sm:mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 text-sm">
             <input
                 class="w-full sm:w-72 text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700"
-                id="url" name="url" type="url" v-model="inputUrl" placeholder="Enter your long URL here" required />
-            <button class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400
-                focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-4 rounded-lg flex
-                items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
-                @click="shrinkUrl">
-                Shrink!
-            </button>
+                :class="{ 'loading-input': loading }"
+                id="url" name="url" type="url" v-model="inputUrl" placeholder="Enter your long URL here"
+                :disabled="loading"
+            />
+                <button class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400
+                    focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-4 rounded-lg flex
+                    items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
+                    @click="shrinkUrl"
+                >
+                    <span v-if="loading" class="animate-spin">
+                        <!-- Spinner icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-5 h-5 mx-auto">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
+                    <span v-else>Shrink!</span>
+                </button>
         </div>
         <!-- Result -->
         <div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm" v-if="res">
@@ -249,5 +269,11 @@ function fallbackCopyTextToClipboard(text) {
 
 .err-message {
     color: rgb(255, 70, 70);
+}
+
+.loading-input {
+    background-color: #D3D3D3; /* equivalent to bg-gray-300 */
+    color: #808080; /* equivalent to text-gray-500 */
+    cursor: not-allowed;
 }
 </style>
