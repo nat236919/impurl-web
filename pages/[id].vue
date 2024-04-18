@@ -21,7 +21,8 @@ async function redirectToOriginalUrl(url: string) {
 try {
     const response = await useFetch<APIResponse>("/api/redirect", {
         method: "POST",
-        body: JSON.stringify({ id: id.value })
+        body: JSON.stringify({ id: id.value }),
+        timeout: 10000, // to set the timeout to 10 seconds
     });
 
     if (response.data.value) {

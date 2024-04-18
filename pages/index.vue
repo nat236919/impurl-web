@@ -23,7 +23,8 @@ async function shrinkUrl() {
     // Call the API
     res.value = await useFetch("/api/urls", {
         method: "POST",
-        body: JSON.stringify({ "original_url": inputUrl.value })
+        body: JSON.stringify({ "original_url": inputUrl.value }),
+        timeout: 10000, // to set the timeout to 10 seconds
     });
 }
 
