@@ -22,7 +22,7 @@ try {
     const response = await useFetch<APIResponse>("/api/redirect", {
         method: "POST",
         body: JSON.stringify({ id: id.value }),
-        timeout: 10000, // to set the timeout to 10 seconds
+        timeout: 30000, // to set the timeout to 30 seconds
     });
 
     if (response.data.value) {

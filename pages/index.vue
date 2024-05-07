@@ -28,7 +28,7 @@ async function shrinkUrl() {
         res.value = await useFetch("/api/urls", {
             method: "POST",
             body: JSON.stringify({ "original_url": inputUrl.value }),
-            timeout: 10000, // to set the timeout to 10 seconds
+            timeout: 30000, // to set the timeout to 30 seconds
         });
     } catch (error) {
         res.value = { error: error.message };
