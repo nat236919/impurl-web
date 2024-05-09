@@ -14,7 +14,7 @@ async function shrinkUrl() {
 
     // Check valid URL
     const validUrl = new RegExp(
-        "^(http|https)://[^s/$.?#].[^s]*$"
+        "^(http|https)://[a-zA-Z0-9-]+([-.][a-zA-Z0-9]+)*.[a-zA-Z]{2,}(:[0-9]{1,5})?(/.*)?$"
     );
     if (!validUrl.test(inputUrl.value)) {
         alert("Please enter a valid URL");
