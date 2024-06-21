@@ -147,7 +147,7 @@ function fallbackCopyTextToClipboard(text) {
             <div>
                 <!-- Author -->
                 <p class="text-center text-slate-600 dark:text-slate-400">
-                    Made with ❤️ by <a href="https://www.mythnolia.com" target="_blank" class="underline">Mythnolia</a>
+                    Made with ❤️ by <a href="https://nuttaphat.com/" target="_blank" class="underline">Nuttaphat Arunoprayoch</a>
                 </p>
                 <!-- Copyright -->
                 <p class="text-center text-slate-600 dark:text-slate-400">
