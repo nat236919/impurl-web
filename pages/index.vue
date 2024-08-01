@@ -34,6 +34,7 @@ async function shrinkUrl() {
         res.value = { error: error.message };
     } finally {
         loading.value = false;
+        inputUrl.value = null;
     }
 }
 
