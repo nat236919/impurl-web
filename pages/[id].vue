@@ -30,7 +30,7 @@ try {
         if (!data || !data.original_url) {
             throw createError({
                 statusCode: 404,
-                statusMessage: 'Page Not Found'
+                statusMessage: "Page Not Found"
             })
         } else {
             originalUrl.value = data.original_url;
@@ -39,7 +39,7 @@ try {
     } else {
         throw createError({
             statusCode: 404,
-            statusMessage: 'Page Not Found'
+            statusMessage: "Page Not Found"
         })
     }
 } catch (error) {

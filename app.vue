@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const title = ref("impURL - Shorten your URLs");
 const description = ref("Where magic makes links shorter and sweeter");
