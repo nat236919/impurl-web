@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-    const config = useRuntimeConfig();
+    const config = useRuntimeConfig()
     const body = await readBody(event)
 
     if (!body || typeof body !== "object")
@@ -21,5 +21,5 @@ export default defineEventHandler(async (event) => {
             "Content-Type": "application/json",
             "X-Api-Key": config.apiSecretKey,
         },
-    });
+    })
 })

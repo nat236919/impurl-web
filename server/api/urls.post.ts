@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-    const config = useRuntimeConfig();
+    const config = useRuntimeConfig()
     const body = await readBody(event)
 
     if (!body || typeof body !== "object")
@@ -22,8 +22,6 @@ export default defineEventHandler(async (event) => {
             statusMessage: "original_url is not a valid URL",
         })
 
-    console.log(config.apiHost);
-
     return await $fetch(`${config.apiHost}/v1/urls/`, {
         method: "POST",
         headers: {
@@ -31,5 +29,5 @@ export default defineEventHandler(async (event) => {
             "X-Api-Key": config.apiSecretKey,
         },
         body: body,
-    });
+    })
 })
