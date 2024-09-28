@@ -6,15 +6,9 @@ const route = useRoute();
 const id = computed(() => route.params.id);
 
 // Redirect to original URL
+// const originalUrl = "http://nuttaphat.com";
 const originalUrl = ref<string | null>(null);
 const errorMessage = ref<string | null>(null);
-
-// Fetch and redirect
-onMounted(() => {
-    fetchAndRedirect().catch((error) => {
-        console.error(error);
-    });
-});
 
 async function redirectToOriginalUrl(url: string) {
     try {
@@ -24,38 +18,35 @@ async function redirectToOriginalUrl(url: string) {
     }
 }
 
-async function fetchAndRedirect() {
-    try {
-        const response = await useFetch<APIResponse>("/api/redirect", {
-            method: "POST",
-            body: JSON.stringify({ id: id.value }),
-            timeout: 30000, // to set the timeout to 30 seconds
-        });
+try {
+    const response = await useFetch<APIResponse>("/api/redirect", {
+        method: "POST",
+        body: JSON.stringify({ id: id.value }),
+        timeout: 30000, // to set the timeout to 30 seconds
+    });
 
-        if (response.data.value) {
-            const data = response.data.value;
-            if (!data || !data.original_url) {
-                throw createError({
-                    statusCode: 404,
-                    statusMessage: "Page Not Found"
-                });
-            } else {
-                originalUrl.value = data.original_url;
-                await redirectToOriginalUrl(originalUrl.value);
-            }
-        } else {
+    if (response.data.value) {
+        const data = response.data.value;
+        if (!data || !data.original_url) {
             throw createError({
                 statusCode: 404,
                 statusMessage: "Page Not Found"
-            });
+            })
+        } else {
+            originalUrl.value = data.original_url;
+            await redirectToOriginalUrl(originalUrl.value);
         }
-    } catch (error) {
-        errorMessage.value = "An error occurred while fetching the original URL.";
+    } else {
         throw createError({
             statusCode: 404,
-            message: error,
-        });
+            statusMessage: "Page Not Found"
+        })
     }
+} catch (error) {
+    throw createError({
+        statusCode: 404,
+        message: error,
+    });
 }
 </script>
 
