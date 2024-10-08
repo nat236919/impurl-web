@@ -1,27 +1,32 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const title = ref("impURL - Shorten your URLs");
-const description = ref("Where magic makes links shorter and sweeter");
+// Constants for static strings
+const SITE_NAME = "impURL";
+const TITLE = "impURL - Shorten your URLs";
+const DESCRIPTION = "Where magic makes links shorter and sweeter";
+const IMAGE_URL = "/img/imp-logo.png";
+const LOCALE = "en_US";
+const TYPE = "website";
 
 useHead({
-  title: title.value,
+  title: TITLE,
   meta: [
     {
-      name: "ImpURL",
-      content: description.value
+      name: SITE_NAME,
+      content: DESCRIPTION,
     }
   ],
 });
 
 useSeoMeta({
-  title: title.value,
-  description: description.value,
-  image: "/img/imp-logo.png",
-  url: "",
-  type: "website",
-  site_name: "impURL",
-  locale: "en_US",
+  title: TITLE,
+  description: DESCRIPTION,
+  image: IMAGE_URL,
+  url: "", // Consider dynamically setting this if possible
+  type: TYPE,
+  site_name: SITE_NAME,
+  locale: LOCALE,
 });
 </script>
 
