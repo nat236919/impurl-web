@@ -1,6 +1,6 @@
 # impURL | Where magic makes links shorter and sweeter
 
-![impurl](https://i.ibb.co/HYLVVy9/impurl.jpg)
+![impurl](https://i.ibb.co/S05ykLr/Screenshot-2024-10-08-161303.jpg)
 
 - **PRODUCTION** [![Netlify Status](https://api.netlify.com/api/v1/badges/55ad531d-7ffa-44bf-8efb-01793428a8ec/deploy-status)](https://app.netlify.com/sites/impurl/deploys)
 - **DEV** [![Netlify Status](https://api.netlify.com/api/v1/badges/c42d58f8-9add-4ea6-911e-2896ea3e8083/deploy-status)](https://app.netlify.com/sites/impurl-dev/deploys)
