@@ -5,6 +5,9 @@ const curYear = new Date().getFullYear();
 const inputUrl = ref(null);
 const res = ref(null);
 const loading = ref(false);
+const curShrunkenUrl = computed(() => {
+    return res.value?.data?.id ? `${reqUrl}${res.value.data.id}` : null;
+});
 
 async function shrinkUrl() {
     if (!inputUrl.value) {
@@ -38,17 +41,16 @@ async function shrinkUrl() {
     }
 }
 
-async function copyToClipboard() {
-    let fullUrl = `${reqUrl}${res.value.data.id}`;
+async function copyToClipboard(text) {
     if (navigator.clipboard) {
         try {
-            await navigator.clipboard.writeText(fullUrl);
+            await navigator.clipboard.writeText(text);
             alert("Copied to clipboard");
         } catch (err) {
-            fallbackCopyTextToClipboard(fullUrl);
+            fallbackCopyTextToClipboard(text);
         }
     } else {
-        fallbackCopyTextToClipboard(fullUrl);
+        fallbackCopyTextToClipboard(text);
     }
 }
 
@@ -120,9 +122,9 @@ function fallbackCopyTextToClipboard(text) {
                 <div class="text-sm leading-6" v-if="res.data.id">
                     <blockquote
                         class="relative flex flex-col-reverse bg-slate-50 rounded-lg p-6 dark:bg-slate-800 dark:highlight-white/5">
-                        <span>
-                            {{ reqUrl }}{{ res.data.id }}
-                            <button @click="copyToClipboard">
+                        <p>
+                            <span>{{ curShrunkenUrl }}</span>
+                            <button @click="copyToClipboard(curShrunkenUrl)">
                                 <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="currentColor" viewBox="0 0 18 20">
                                     <path
@@ -133,7 +135,7 @@ function fallbackCopyTextToClipboard(text) {
                                     </path>
                                 </svg>
                             </button>
-                        </span>
+                        </p>
                     </blockquote>
                 </div>
             </div>
