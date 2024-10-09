@@ -86,10 +86,10 @@ function fallbackCopyTextToClipboard(text: string) {
         <!-- Title -->
         <h1
             class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white">
-            impURL
+            <p class="shrinkable-text">impURL</p>
         </h1>
         <h3 class="mt-4 text-slate-600 text-center text-lg sm:text-xl max-w-3xl mx-auto dark:text-slate-400">
-            Where magic makes links shorter and sweeter
+            <p class="shrinkable-text">Where magic makes links shorter and sweeter</p>
         </h3>
         <!-- Call to Action -->
         <div
@@ -278,9 +278,16 @@ function fallbackCopyTextToClipboard(text: string) {
 
 .loading-input {
     background-color: #D3D3D3;
-    /* equivalent to bg-gray-300 */
     color: #808080;
-    /* equivalent to text-gray-500 */
     cursor: not-allowed;
+}
+
+.shrinkable-text {
+    transition: transform 0.3s ease-in-out;
+    cursor: default;
+}
+
+.shrinkable-text:hover {
+    transform: scale(0.95);
 }
 </style>
