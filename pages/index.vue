@@ -41,7 +41,7 @@ async function shrinkUrl() {
     }
 }
 
-async function copyToClipboard(text) {
+async function copyToClipboard(text: string) {
     if (navigator.clipboard) {
         try {
             await navigator.clipboard.writeText(text);
@@ -54,7 +54,7 @@ async function copyToClipboard(text) {
     }
 }
 
-function fallbackCopyTextToClipboard(text) {
+function fallbackCopyTextToClipboard(text: string) {
     var textArea = document.createElement("textarea");
     textArea.value = text;
 
